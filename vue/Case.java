@@ -1,5 +1,7 @@
 package vue;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -34,16 +36,20 @@ public class Case extends JButton {
 	private void majType(){
 		switch (type) {
 		case MUR:
-			this.setIcon(Constantes.ICON_MUR);
+			this.setBackground(Color.DARK_GRAY);
+			//this.setIcon(Constantes.ICON_MUR);
 			break;
 		case PASSAGE:
-			this.setIcon(Constantes.ICON_PASSAGE);
+			this.setBackground(Color.LIGHT_GRAY);
+//			this.setIcon(Constantes.ICON_PASSAGE);
 			break;
 		case FINISH:
-			this.setIcon(Constantes.ICON_FINISH);
+			this.setBackground(Color.YELLOW);
+//			this.setIcon(Constantes.ICON_FINISH);
 			break;
 		case JOUEUR:
-			this.setIcon(Constantes.ICON_JOUEUR);
+			this.setBackground(Color.RED);
+//			this.setIcon(Constantes.ICON_JOUEUR);
 			break;
 		}
 	}

@@ -30,7 +30,13 @@ public class EcouteurCase implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Le point d'arriver est deja placée veuillez le retirer pour le replacer", 
 						"Attention", JOptionPane.INFORMATION_MESSAGE, null);
 			}else{
+
+				if(modele.getTypePourCase(x, y) == TypeCase.JOUEUR){
+					modele.changeJoueurPlacer();
+					modele.setJoueur(-1,-1);
+				}
 				modele.changeFinishPlacer();
+				modele.setFinish(x,y);
 			}
 		}else if(modele.getTypeSelectionner() == TypeCase.JOUEUR){
 			if(modele.isJoueurPlacer()){
@@ -38,13 +44,20 @@ public class EcouteurCase implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Le joueur est deja placée veuillez le retirer pour le replacer", 
 						"Attention", JOptionPane.INFORMATION_MESSAGE, null);
 			}else{
+				if(modele.getTypePourCase(x, y) == TypeCase.FINISH){
+					modele.changeFinishPlacer();
+					modele.setFinish(-1,-1);
+				}
 				modele.changeJoueurPlacer();
+				modele.setJoueur(x,y);
 			}
 		}else{
 			if(modele.getTypePourCase(x, y) == TypeCase.JOUEUR){
 				modele.changeJoueurPlacer();
+				modele.setJoueur(-1,-1);
 			}else if(modele.getTypePourCase(x, y) == TypeCase.FINISH){
 				modele.changeFinishPlacer();
+				modele.setFinish(-1,-1);
 			}
 		}
 		if(peutModifier)

@@ -2,6 +2,8 @@ package modele;
 
 import java.util.Observable;
 
+import recherche.Historique;
+
 import vue.VueGraphique;
 
 import modele.Labyrinthe.TypeCase;
@@ -13,8 +15,10 @@ public class Modele extends Observable{
 	private VueGraphique vueGraphique;
 	private boolean joueurPlacer = false;
 	private boolean finishPlacer = false;
+	private Historique historique;
 	
 	public Modele(){
+		historique = new Historique();
 		//initLabyrinthe(5, 5);
 	}
 	
@@ -26,6 +30,8 @@ public class Modele extends Observable{
 	 */
 	public void initLabyrinthe(int largeur, int hauteur){
 		labyrinthe = new Labyrinthe(largeur, hauteur);
+		joueurPlacer = false;
+		finishPlacer = false;
 	}
 	
 	/**
@@ -99,5 +105,21 @@ public class Modele extends Observable{
 	
 	public void changeFinishPlacer(){
 		finishPlacer = !finishPlacer;
+	}
+
+	public void setJoueur(int x, int y) {
+		labyrinthe.setJoueur(x, y);
+	}
+
+	public void setFinish(int x, int y) {
+		labyrinthe.setFinish(x, y);
+	}
+	
+	public Historique getHistorique(){
+		return historique;
+	}
+	
+	public Labyrinthe getLabyrinthe(){
+		return labyrinthe;
 	}
 }
