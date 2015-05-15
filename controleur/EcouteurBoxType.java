@@ -32,7 +32,6 @@ public class EcouteurBoxType implements ActionListener{
 			modele.setTypeSelectionner(TypeCase.FINISH);
 			break;
 		}
-		System.out.println(modele.getTypeSelectionner());
 	}
 
 }

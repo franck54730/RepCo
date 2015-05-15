@@ -1,5 +1,7 @@
 package modele;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import recherche.Historique;
@@ -16,9 +18,11 @@ public class Modele extends Observable{
 	private boolean joueurPlacer = false;
 	private boolean finishPlacer = false;
 	private Historique historique;
+	private ArrayList<Point> chemin;
 	
 	public Modele(){
 		historique = new Historique();
+		chemin = new ArrayList<Point>();
 		//initLabyrinthe(5, 5);
 	}
 	
@@ -121,5 +125,33 @@ public class Modele extends Observable{
 	
 	public Labyrinthe getLabyrinthe(){
 		return labyrinthe;
+	}
+	
+	public void recupereChemin(Labyrinthe l){
+		chemin.clear();
+		while(l != null){
+			chemin.add(0,new Point(l.getXJoueur(), l.getYJoueur()));
+			l = l.getPere();
+		}
+	}
+	/*
+	public ArrayList<Labyrinthe> recupereChemin(Labyrinthe l){
+		ArrayList<Labyrinthe> rep = null;
+		if(l == null){
+			rep = new ArrayList<Labyrinthe>();
+		}else{
+			if(l.getXJoueur() == labyrinthe.getXJoueur() && l.getYJoueur() == labyrinthe.getYJoueur()){
+				rep = new ArrayList<Labyrinthe>();
+			}else{
+				rep = new ArrayList<Labyrinthe>(recupereChemin(l.getPere()));
+			}
+		}
+		rep.add(l);
+		return rep;
+	}
+	*/
+
+	public ArrayList<Point> getChemin() {
+		return chemin;
 	}
 }

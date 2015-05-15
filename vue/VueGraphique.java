@@ -1,6 +1,8 @@
 package vue;
 
 import java.awt.Dimension;
+import java.awt.Point;
+
 import modele.Labyrinthe.TypeCase;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -83,10 +85,25 @@ public class VueGraphique extends JPanel implements Observer{
 				cases[i][j].setText(nbParcouru[i][j]+"");
 			}
 		}
+		printChemin();
 	}
 	
 	public void printChemin(){
-		
+		int i = 0;
+		for(Point p : modele.getChemin()){
+			if(i != 0 && i != modele.getChemin().size()-1){
+				cases[p.x][p.y].setTypeCase(TypeCase.CHEMIN);
+			}
+			i++;
+		}
+//		
+//		for(int k = 0; k < modele.getLargeur(); k++){
+//			System.out.print("[ ");
+//			for(int j = 0; j < modele.getHauteur(); j++){
+//				System.out.print(cases[k][j]+", ");
+//			}
+//			System.out.println(" ]");
+//		}
 	}
 	
 	public void printHistorique(){
@@ -95,7 +112,6 @@ public class VueGraphique extends JPanel implements Observer{
 		for(int i = 0; i < h.size(); i++){
 			Labyrinthe etape = (Labyrinthe) h.getValue(i);
 			nbParcouru[etape.getXJoueur()][etape.getYJoueur()]++;
-			System.out.println(etape);
 		}
 	}
 	

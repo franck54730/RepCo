@@ -10,9 +10,10 @@ import modele.Labyrinthe.TypeCase;
 
 public class Labyrinthe implements IJeu{
 
-	public enum TypeCase{MUR, PASSAGE, JOUEUR, FINISH, JOUEUR_FINISH};
+	public enum TypeCase{MUR, PASSAGE, JOUEUR, FINISH, CHEMIN};
 	
 	private TypeCase[][] plateau;
+	private Labyrinthe pere;
 	private int hauteur;
 	private int largeur;
 	private int xJoueur = -1;
@@ -147,27 +148,39 @@ public class Labyrinthe implements IJeu{
 		return plateau;
 	}
 	
+	public void setPere(Labyrinthe l){
+		pere = l;
+	}
+	
+	public Labyrinthe getPere(){
+		return pere;
+	}
+	
 	public Labyrinthe DeplacerHaut(){
 		Labyrinthe rep = new Labyrinthe(this);
 		rep.goToCase(xJoueur, yJoueur-1);
+		rep.setPere(this);
 		return rep;
 	}
 	
 	public Labyrinthe DeplacerBas(){
 		Labyrinthe rep = new Labyrinthe(this);
 		rep.goToCase(xJoueur, yJoueur+1);
+		rep.setPere(this);
 		return rep;
 	}
 	
 	public Labyrinthe DeplacerDroite(){
 		Labyrinthe rep = new Labyrinthe(this);
 		rep.goToCase(xJoueur+1, yJoueur);
+		rep.setPere(this);
 		return rep;
 	}
 	
 	public Labyrinthe DeplacerGauche(){
 		Labyrinthe rep = new Labyrinthe(this);
 		rep.goToCase(xJoueur-1, yJoueur);
+		rep.setPere(this);
 		return rep;
 	}
 	
@@ -180,9 +193,7 @@ public class Labyrinthe implements IJeu{
 	 */
 	public void goToCase(int posX, int posY){
 		plateau[xJoueur][yJoueur] = TypeCase.PASSAGE;
-		if(plateau[posX][posY] == TypeCase.FINISH){
-			plateau[posX][posY] = TypeCase.JOUEUR_FINISH;
-		}
+		plateau[posX][posY] = TypeCase.JOUEUR;
 		xJoueur = posX;
 		yJoueur = posY;
 	}
@@ -190,4 +201,40 @@ public class Labyrinthe implements IJeu{
 	public String toString(){
 		return " h : "+hauteur+" l : "+largeur+" finish : ("+xFinish+","+yFinish+") joueur : ("+xJoueur+","+yJoueur+")";
 	}
+	
+
+
+    @Override
+    public boolean equals(Object o){
+        try{
+        	Labyrinthe other = (Labyrinthe) o;
+        	boolean equal = true;
+        	if(other.hauteur != this.hauteur)
+        		equal = false;
+        	else if(other.largeur != this.largeur)
+        		equal = false;
+        	else if(other.xFinish != this.xFinish)
+        		equal = false;
+        	else if(other.xJoueur != this.xJoueur)
+        		equal = false;
+        	else if(other.yFinish != this.yFinish)
+        		equal = false;
+        	else if(other.yJoueur != this.yJoueur)
+        		equal = false;
+        	else {
+        		for(int i = 0; i < plateau.length; i++){
+        			for (int j = 0; j < plateau[0].length; j++) {
+						if(plateau[i][j] != other.plateau[i][j]){
+							equal = false;
+							break;
+						}
+					}
+        		}
+        	}
+        	return equal;
+        		
+        }catch(Exception e){
+        	return false;
+        }
+    }
 }

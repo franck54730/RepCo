@@ -8,13 +8,13 @@ public class ProfondeurDAbord implements IRecherche {
 	
     }
     
-    public boolean existeChemin(IJeu i,Historique h){
-		boolean res =false;
+    public IJeu existeChemin(IJeu i,Historique h){
+    	IJeu res = null;
 		if(i.estFinal()){
-		    res = true;
+		    res = i;
 		}else{
 		    Iterator<IJeu> j = i.iterator();
-		    while(j.hasNext() && !res){
+		    while(j.hasNext() && !res.estFinal()){
 				IJeu tmp = j.next();
 				h.ajouterHistorique(tmp);
 				res= existeChemin(tmp,h);

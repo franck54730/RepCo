@@ -51,7 +51,17 @@ public class Case extends JButton {
 			this.setBackground(Color.RED);
 //			this.setIcon(Constantes.ICON_JOUEUR);
 			break;
+		case CHEMIN:
+			this.setBackground(Color.BLUE);
+//			this.setIcon(Constantes.ICON_JOUEUR);
+			break;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Stub de la méthode généré automatiquement
+		return ""+type;
 	}
 	
 }
