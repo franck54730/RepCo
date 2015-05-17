@@ -10,7 +10,7 @@ import modele.Labyrinthe.TypeCase;
 
 public class Labyrinthe implements IJeu{
 
-	public enum TypeCase{MUR, PASSAGE, JOUEUR, FINISH, CHEMIN};
+	public enum TypeCase{MUR, PASSAGE, JOUEUR, FINISH, CHEMIN, HISTORIQUE};
 	
 	private TypeCase[][] plateau;
 	private Labyrinthe pere;
@@ -73,7 +73,7 @@ public class Labyrinthe implements IJeu{
 	public void initLabyrinthe(){
 		for(int i = 0; i < largeur; i++){
 			for(int j = 0; j < hauteur; j++){
-				plateau[i][j] = TypeCase.MUR;
+				plateau[i][j] = TypeCase.PASSAGE;
 			}
 		}
 	}
@@ -124,14 +124,14 @@ public class Labyrinthe implements IJeu{
 //			System.out.println("bord gauche : "+gauchePossible);
 //			System.out.println("bord bas : "+basPossible);
 //			System.out.println("bord haut : "+hautPossible);
-			if(droitePossible)
-				rep.add(DeplacerDroite());
 			if(gauchePossible)
 				rep.add(DeplacerGauche());
-			if(basPossible)
-				rep.add(DeplacerBas());
+			if(droitePossible)
+				rep.add(DeplacerDroite());
 			if(hautPossible)
 				rep.add(DeplacerHaut());
+			if(basPossible)
+				rep.add(DeplacerBas());
 		}
 		return rep.iterator();
 	}

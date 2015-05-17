@@ -32,4 +32,8 @@ public class Historique {
 	public void ajouterHistorique(IJeu a){
 		this.historique.add(a);
 	}
+
+	public void clear() {
+		historique.clear();
+	}
 }

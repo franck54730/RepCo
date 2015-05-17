@@ -55,6 +55,10 @@ public class Case extends JButton {
 			this.setBackground(Color.BLUE);
 //			this.setIcon(Constantes.ICON_JOUEUR);
 			break;
+		case HISTORIQUE:
+			this.setBackground(Color.ORANGE);
+//			this.setIcon(Constantes.ICON_JOUEUR);
+			break;
 		}
 	}
 	

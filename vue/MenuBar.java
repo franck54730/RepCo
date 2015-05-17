@@ -8,6 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import controleur.EcouteurNouveau;
+import controleur.EcouteurReinit;
 
 import modele.Modele;
 
@@ -15,12 +16,15 @@ public class MenuBar extends JMenuBar implements Observer {
 
 	private Modele modele;
 	private JMenuItem itemNouveau;
+	private JMenuItem itemReinit;
 	
 	public MenuBar(Modele m){
 		modele = m;
 		modele.addObserver(this);
 		itemNouveau = new JMenuItem("Nouveau");
 		itemNouveau.addActionListener(new EcouteurNouveau(modele));
+		itemReinit = new JMenuItem("Réinitialiser");
+		itemReinit.addActionListener(new EcouteurReinit(modele));
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.add(itemNouveau);
 		add(menuFichier);

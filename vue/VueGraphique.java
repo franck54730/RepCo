@@ -5,6 +5,7 @@ import java.awt.Point;
 
 import modele.Labyrinthe.TypeCase;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,15 +23,16 @@ public class VueGraphique extends JPanel implements Observer{
 
 	protected Modele modele;
 	protected Case[][] cases;
-	protected int[][] nbParcouru;
 	protected JPanel panelVue;
 	protected int caseLargeur = 75;
+	protected ArrayList<Point> parcouru;
 	
 	
 	public VueGraphique(Modele m) {
 		modele = m;
 		modele.addObserver(this);
 		modele.setVueGraphique(this);
+		parcouru = new ArrayList<Point>();
 		panelVue = new JPanel();
 		this.add(panelVue);
 	}
@@ -51,7 +53,6 @@ public class VueGraphique extends JPanel implements Observer{
 //				panelVue.add(new JLabel(i+" "+j));
 			}
 		}
-		initTabParcouru();
 //		panelVue.setLayout(new GridLayout(modele.getHauteur(), modele.getLargeur()));
 //		panelVue.setPreferredSize(new Dimension(modele.getLargeur()*50, modele.getHauteur()*50));
 //		Case c;
@@ -78,13 +79,13 @@ public class VueGraphique extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		printHistorique();
+		construireParcouru();
 		for(int i = 0; i < modele.getLargeur(); i++){
 			for(int j = 0; j < modele.getHauteur(); j++){
 				cases[i][j].setTypeCase(modele.getTypePourCase(i, j));
-				cases[i][j].setText(nbParcouru[i][j]+"");
 			}
 		}
+		printParcouru();
 		printChemin();
 	}
 	
@@ -96,30 +97,26 @@ public class VueGraphique extends JPanel implements Observer{
 			}
 			i++;
 		}
-//		
-//		for(int k = 0; k < modele.getLargeur(); k++){
-//			System.out.print("[ ");
-//			for(int j = 0; j < modele.getHauteur(); j++){
-//				System.out.print(cases[k][j]+", ");
-//			}
-//			System.out.println(" ]");
-//		}
 	}
 	
-	public void printHistorique(){
-		initTabParcouru();
-		Historique h = modele.getHistorique();
-		for(int i = 0; i < h.size(); i++){
-			Labyrinthe etape = (Labyrinthe) h.getValue(i);
-			nbParcouru[etape.getXJoueur()][etape.getYJoueur()]++;
+	public void printParcouru(){
+		int i = 0;
+		for(Point p : parcouru){
+			if(modele.getTypePourCase(p.x, p.y) == TypeCase.PASSAGE){
+				cases[p.x][p.y].setTypeCase(TypeCase.HISTORIQUE);
+			}
+			i++;
 		}
 	}
 	
-	public void initTabParcouru(){
-		nbParcouru = new int[modele.getLargeur()][modele.getHauteur()];
-		for(int i = 0; i < modele.getLargeur(); i++){
-			for(int j = 0; j < modele.getHauteur(); j++){
-				nbParcouru[i][j] = 0;
+	public void construireParcouru(){
+		Historique h = modele.getHistorique();
+		parcouru.clear();
+		for(int i = 0; i < h.size(); i++){
+			Labyrinthe etape = (Labyrinthe) h.getValue(i);
+			Point p = new Point(etape.getXJoueur(),etape.getYJoueur());
+			if(!parcouru.contains(p)){
+				parcouru.add(p);
 			}
 		}
 	}

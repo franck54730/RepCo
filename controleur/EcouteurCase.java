@@ -23,6 +23,7 @@ public class EcouteurCase implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		modele.reinitVue();
 		boolean peutModifier = true;
 		if(modele.getTypeSelectionner() == TypeCase.FINISH){
 			if(modele.isFinishPlacer()){

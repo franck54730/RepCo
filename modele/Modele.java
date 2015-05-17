@@ -134,24 +134,21 @@ public class Modele extends Observable{
 			l = l.getPere();
 		}
 	}
-	/*
-	public ArrayList<Labyrinthe> recupereChemin(Labyrinthe l){
-		ArrayList<Labyrinthe> rep = null;
-		if(l == null){
-			rep = new ArrayList<Labyrinthe>();
-		}else{
-			if(l.getXJoueur() == labyrinthe.getXJoueur() && l.getYJoueur() == labyrinthe.getYJoueur()){
-				rep = new ArrayList<Labyrinthe>();
-			}else{
-				rep = new ArrayList<Labyrinthe>(recupereChemin(l.getPere()));
-			}
-		}
-		rep.add(l);
-		return rep;
-	}
-	*/
 
 	public ArrayList<Point> getChemin() {
 		return chemin;
+	}
+
+	public void reinitialiser() {
+		chemin.clear();
+		historique.clear();
+	}
+
+	/**
+	 * vide le chemin et l'historique pour ne plus les afficher
+	 */
+	public void reinitVue() {
+		chemin.clear();
+		historique.clear();
 	}
 }

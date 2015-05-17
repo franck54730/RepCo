@@ -11,6 +11,7 @@ import javax.swing.JToolBar;
 
 import controleur.EcouteurBoxType;
 import controleur.EcouteurLargeur;
+import controleur.EcouteurProfondeur;
 
 import modele.Constantes;
 import modele.Modele;
@@ -20,6 +21,7 @@ public class ToolBar extends JToolBar implements Observer {
 	private Modele modele;
 	private JComboBox typeList;
 	private JButton buttonLargeur;
+	private JButton buttonProfondeur;
 	
 	public ToolBar(Modele m){
 		modele = m;
@@ -34,6 +36,9 @@ public class ToolBar extends JToolBar implements Observer {
 		buttonLargeur = new JButton("Largeur");
 		buttonLargeur.addActionListener(new EcouteurLargeur(modele));
 		add(buttonLargeur);
+		buttonProfondeur = new JButton("Profondeur");
+		buttonProfondeur.addActionListener(new EcouteurProfondeur(modele));
+		add(buttonProfondeur);
 	}
 
 	@Override
