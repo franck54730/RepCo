@@ -5,20 +5,21 @@ import java.awt.event.ActionListener;
 
 import modele.Labyrinthe;
 import modele.Modele;
+import recherche.AStar;
 import recherche.ProfondeurDAbord;
 
-public class EcouteurProfondeur implements ActionListener {
+public class EcouteurAStar implements ActionListener {
 
 	protected Modele modele;
 
-	public EcouteurProfondeur(Modele m) {
+	public EcouteurAStar(Modele m) {
 		modele = m;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		modele.reinitialiser();
-		ProfondeurDAbord profondeur = new ProfondeurDAbord();
-		Labyrinthe chemin = (Labyrinthe) profondeur.existeChemin(modele.getLabyrinthe(), modele.getHistorique());
+		AStar astar = new AStar();
+		Labyrinthe chemin = (Labyrinthe) astar.existeChemin(modele.getLabyrinthe(), modele.getHistorique());
 		modele.recupereChemin(chemin);
 		modele.miseAJour();
 	}

@@ -25,6 +25,7 @@ public class EcouteurLargeur implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		modele.reinitialiser();
 		LargeurDAbord largeur = new LargeurDAbord();
 		Labyrinthe chemin = (Labyrinthe) largeur.existeChemin(modele.getLabyrinthe(), modele.getHistorique());
 		modele.recupereChemin(chemin);

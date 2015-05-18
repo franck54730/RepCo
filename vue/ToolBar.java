@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 
+import controleur.EcouteurAStar;
 import controleur.EcouteurBoxType;
 import controleur.EcouteurLargeur;
 import controleur.EcouteurProfondeur;
@@ -22,6 +23,7 @@ public class ToolBar extends JToolBar implements Observer {
 	private JComboBox typeList;
 	private JButton buttonLargeur;
 	private JButton buttonProfondeur;
+	private JButton buttonAstar;
 	
 	public ToolBar(Modele m){
 		modele = m;
@@ -39,6 +41,9 @@ public class ToolBar extends JToolBar implements Observer {
 		buttonProfondeur = new JButton("Profondeur");
 		buttonProfondeur.addActionListener(new EcouteurProfondeur(modele));
 		add(buttonProfondeur);
+		buttonAstar = new JButton("A*");
+		buttonAstar.addActionListener(new EcouteurAStar(modele));
+		add(buttonAstar);
 	}
 
 	@Override

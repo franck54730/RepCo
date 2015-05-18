@@ -20,6 +20,23 @@ public class Labyrinthe implements IJeu{
 	private int yJoueur = -1;
 	private int xFinish = -1;
 	private int yFinish = -1;
+	private int distanceM;
+	private int g = 0;
+	
+	public int getG(){
+		if(pere != null){ 
+			return pere.g + 1;
+		}
+		return 0;
+	}
+	
+	public int h(){
+		return Math.abs(this.getXArriver() - this.getXJoueur())+Math.abs(this.getYArriver() - this.getYJoueur());
+	}
+	
+	public int getF(){
+		return pere.getG()+h()+1;
+	}
 	
 	public int getXJoueur(){
 		return xJoueur;
@@ -150,6 +167,7 @@ public class Labyrinthe implements IJeu{
 	
 	public void setPere(Labyrinthe l){
 		pere = l;
+		g = l.getG()+1;
 	}
 	
 	public Labyrinthe getPere(){
@@ -199,7 +217,8 @@ public class Labyrinthe implements IJeu{
 	}
 	
 	public String toString(){
-		return " h : "+hauteur+" l : "+largeur+" finish : ("+xFinish+","+yFinish+") joueur : ("+xJoueur+","+yJoueur+")";
+		String pereS = pere!=null?"pere : "+"("+pere.xJoueur+","+pere.yJoueur+")":"";
+		return "{joueur : ("+xJoueur+","+yJoueur+") "+pereS+"}";
 	}
 	
 
@@ -237,4 +256,12 @@ public class Labyrinthe implements IJeu{
         	return false;
         }
     }
+
+	public int getXArriver() {
+		return xFinish;
+	}
+
+	public int getYArriver() {
+		return yFinish;
+	}
 }

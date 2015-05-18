@@ -21,8 +21,9 @@ public class Historique {
 	
 	public boolean contain(IJeu a){
 		boolean res = false;
-		for (int i = 0; i <historique.size(); i++) {
-			if(Arrays.deepEquals(historique.get(i).getTab(),a.getTab())){
+		for (int i = 0; i < historique.size() && !res; i++) {
+			IJeu jeu = historique.get(i);
+			if(jeu.equals(a)){
 				res = true;
 			}
 		}

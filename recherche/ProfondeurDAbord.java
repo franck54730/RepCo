@@ -40,21 +40,40 @@ public class ProfondeurDAbord implements IRecherche {
 //	}
 	
 	
-	public IJeu existeChemin(IJeu i,Historique h){
-		IJeu res = null;
+	public IJeu existeChemin(IJeu i, Historique h){
+		h.ajouterHistorique(i);
 		boolean fini = false;
+		IJeu res = null;
 		if(i.estFinal()){
-			fini = true;
 			res = i;
 		}else{
-			Iterator<IJeu> j = i.iterator();
-			while(j.hasNext() && !fini){
-				IJeu tmp = j.next();
-				h.ajouterHistorique(tmp);
-				res= existeChemin(tmp,h);
-				fini = res != null;
+			Iterator<IJeu> lesFils = i.iterator();
+			while(lesFils.hasNext() && !fini){
+				IJeu unFils = lesFils.next();
+				if(!h.contain(unFils) && !fini){
+					res = existeChemin(unFils, h);
+					fini = res != null;
+				}
 			}
 		}
 		return res;
 	}
+	
+//	public IJeu existeChemin(IJeu i,Historique h){
+//		IJeu res = null;
+//		boolean fini = false;
+//		if(i.estFinal()){
+//			fini = true;
+//			res = i;
+//		}else{
+//			Iterator<IJeu> j = i.iterator();
+//			while(j.hasNext() && !fini){
+//				IJeu tmp = j.next();
+//				h.ajouterHistorique(tmp);
+//				res= existeChemin(tmp,h);
+//				fini = res != null;
+//			}
+//		}
+//		return res;
+//	}
 }
