@@ -5,31 +5,47 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import modele.Constantes;
 import modele.Labyrinthe;
+import modele.Modele;
+import modele.Constantes.Vitesse;
 
 public class AStar implements IRecherche {
 
-	public AStar() {
-
+	protected Modele modele;
+	
+	public AStar(Modele m){
+		modele = m;
 	}
 	
-	public IJeu existeChemin(IJeu i, Historique h) {
+	public void existeChemin() {
 		ArrayList<IJeu> listOuverte = new ArrayList<IJeu>();
-		listOuverte.add(i);
+		listOuverte.add(modele.getLabyrinthe());
 		ArrayList<IJeu> listFermer = new ArrayList<IJeu>();
-		while(!listOuverte.isEmpty()){
+		Labyrinthe chemin = null;
+		boolean fini = false;
+		while(!listOuverte.isEmpty() && !fini){
+			try {
+				if(modele.getVitesse() != Vitesse.DIRECT)
+					Thread.sleep(Constantes.getVitesseAStar(modele));
+			} catch (InterruptedException e) {
+				// TODO Bloc catch généré automatiquement
+				e.printStackTrace();
+			}
 			//on extrait de la liste celui qui a le f() le plus petit.
 			Labyrinthe fMinimum = (Labyrinthe) min(listOuverte);
 			listFermer.add(fMinimum);
 			if(fMinimum.estFinal()){
-				return fMinimum;
+				chemin = fMinimum;
+				fini = true;
 			}else{
 				Iterator<IJeu> iter = fMinimum.iterator();
 				while (iter.hasNext()) {
 					Labyrinthe fils = (Labyrinthe) iter.next();
 					boolean dansFermerOuOuvert = ( listFermer.contains(fils) || listOuverte.contains(fils) );
 					if(!dansFermerOuOuvert){
-						h.ajouterHistorique(fils);
+						modele.getHistorique().ajouterHistorique(fils);
+						modele.miseAJour();
 						fils.setPere((Labyrinthe) fMinimum);
 						listOuverte.add(fils);
 					}
@@ -39,7 +55,8 @@ public class AStar implements IRecherche {
 		for (IJeu iJeu : listFermer) {
 			System.out.println(iJeu);
 		}
-		return null;		
+		modele.recupereChemin((Labyrinthe) chemin);
+		modele.miseAJour();
 	}
 
 	/**
@@ -59,5 +76,13 @@ public class AStar implements IRecherche {
 		}
 		al.remove(indiceMin);
 		return min;
+	}
+
+	@Override
+	public void run() {
+		// TODO Stub de la méthode généré automatiquement
+	    long time = System.currentTimeMillis();
+		this.existeChemin();
+		System.out.println(System.currentTimeMillis()-time);
 	}
 }

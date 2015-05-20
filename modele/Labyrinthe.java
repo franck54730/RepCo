@@ -90,7 +90,7 @@ public class Labyrinthe implements IJeu{
 	public void initLabyrinthe(){
 		for(int i = 0; i < largeur; i++){
 			for(int j = 0; j < hauteur; j++){
-				plateau[i][j] = TypeCase.PASSAGE;
+				plateau[i][j] = TypeCase.MUR;
 			}
 		}
 	}

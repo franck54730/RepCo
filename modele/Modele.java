@@ -1,5 +1,6 @@
 package modele;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -8,17 +9,20 @@ import recherche.Historique;
 
 import vue.VueGraphique;
 
+import modele.Constantes.Vitesse;
 import modele.Labyrinthe.TypeCase;
 
 public class Modele extends Observable{
 
 	private Labyrinthe labyrinthe;
-	private TypeCase typeSelectionner = TypeCase.MUR;
+	private TypeCase typeSelectionner = TypeCase.PASSAGE;
 	private VueGraphique vueGraphique;
 	private boolean joueurPlacer = false;
 	private boolean finishPlacer = false;
 	private Historique historique;
 	private ArrayList<Point> chemin;
+	private Vitesse vitesse = Vitesse.NORMAL;
+	private Dimension dimension = new Dimension(500, 500);
 	
 	public Modele(){
 		historique = new Historique();
@@ -150,5 +154,24 @@ public class Modele extends Observable{
 	public void reinitVue() {
 		chemin.clear();
 		historique.clear();
+	}
+
+	public Vitesse getVitesse() {
+		// TODO Stub de la méthode généré automatiquement
+		return vitesse;
+	}
+
+	public void setVitesse(Vitesse v) {
+		vitesse = v;
+	}
+
+	public Dimension getDimension() {
+		// TODO Stub de la méthode généré automatiquement
+		return dimension;
+	}
+	
+	public void setDimension(Dimension d){
+		dimension = d;
+		vueGraphique.resize();
 	}
 }

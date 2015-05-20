@@ -1,7 +1,9 @@
 package recherche;
 
-public interface IRecherche{
+import modele.Modele;
 
-    public IJeu existeChemin(IJeu i,Historique h);
+public interface IRecherche extends Runnable{
+
+    public void existeChemin();
 }
 

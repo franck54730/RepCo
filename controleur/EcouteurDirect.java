@@ -2,33 +2,27 @@ package controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.RepaintManager;
-
-import recherche.LargeurDAbord;
 
 
-import modele.Labyrinthe;
 import modele.Modele;
+import modele.Constantes.Vitesse;
 
-public class EcouteurLargeur implements ActionListener{
+public class EcouteurDirect implements ActionListener{
 	
 	protected Modele modele;
 	
-	public EcouteurLargeur(Modele m) {
+	public EcouteurDirect(Modele m) {
 		modele = m;
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		modele.reinitialiser();
-		LargeurDAbord largeur = new LargeurDAbord(modele);
-		Thread t = new Thread(largeur);
-		t.start();
+		modele.setVitesse(Vitesse.DIRECT);
+		System.out.println(modele.getVitesse());
 		modele.miseAJour();
 	}
 

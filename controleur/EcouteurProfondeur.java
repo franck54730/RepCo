@@ -17,9 +17,9 @@ public class EcouteurProfondeur implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		modele.reinitialiser();
-		ProfondeurDAbord profondeur = new ProfondeurDAbord();
-		Labyrinthe chemin = (Labyrinthe) profondeur.existeChemin(modele.getLabyrinthe(), modele.getHistorique());
-		modele.recupereChemin(chemin);
+		ProfondeurDAbord profondeur = new ProfondeurDAbord(modele);
+		Thread t = new Thread(profondeur);
+		t.start();
 		modele.miseAJour();
 	}
 

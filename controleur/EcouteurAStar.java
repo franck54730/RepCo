@@ -18,9 +18,9 @@ public class EcouteurAStar implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		modele.reinitialiser();
-		AStar astar = new AStar();
-		Labyrinthe chemin = (Labyrinthe) astar.existeChemin(modele.getLabyrinthe(), modele.getHistorique());
-		modele.recupereChemin(chemin);
+		AStar astar = new AStar(modele);
+		Thread t = new Thread(astar);
+		t.start();
 		modele.miseAJour();
 	}
 
